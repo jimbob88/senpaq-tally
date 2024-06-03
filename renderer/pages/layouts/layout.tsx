@@ -5,8 +5,8 @@ import logo from "../../../resources/icon.svg";
 export default function Layout(props: PropsWithChildren) {
     const {children} = props;
     return (
-        <React.Fragment>
-            <header>
+        <div className="flex flex-col h-full">
+            <header className="shadow-md">
                 <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
                     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                         <span className="flex items-center">
@@ -16,11 +16,11 @@ export default function Layout(props: PropsWithChildren) {
                     </div>
                 </nav>
             </header>
-            <main>
-                <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+            <main className="flex-1">
+                <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 w-full h-full">
                     {children}
                 </div>
             </main>
-        </React.Fragment>
+        </div>
     );
 }

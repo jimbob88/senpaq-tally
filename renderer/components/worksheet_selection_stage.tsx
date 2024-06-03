@@ -8,13 +8,17 @@ export default function WorksheetSelectionStage(props: {
     const updateSelection = (event: React.ChangeEvent<HTMLSelectElement>) => {
         if (event.currentTarget.selectedIndex === 0) {
             props.setWorksheet(null);
+        } else {
+            props.setWorksheet(event.currentTarget.value);
         }
-
-        props.setWorksheet(event.currentTarget.value);
     }
 
+    useEffect(() => {
+        props.setWorksheet(null);
+    }, [props.workbook]);
+
     return (
-        <React.Fragment>
+        <div className="w-full px-10">
             <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
                 the worksheet</label>
             <select defaultValue={0} id="countries" disabled={props.workbook === null} onChange={updateSelection}
@@ -23,6 +27,6 @@ export default function WorksheetSelectionStage(props: {
                 {props.workbook && props.workbook.SheetNames.map(sheetName => <option value={sheetName}
                                                                                       key={sheetName}>{sheetName}</option>)}
             </select>
-        </React.Fragment>
+        </div>
     );
 }

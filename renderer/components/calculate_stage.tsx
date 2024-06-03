@@ -42,7 +42,6 @@ function isSimilar(group1: string, group2: string): boolean {
 function doTally(table: Table, tally: Tally, productCount: number) {
     for (let row = 1; row < table.length; row++) {
         let rowGroups = table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
-        console.log(rowGroups);
 
         if (rowGroups.length !== productCount) {
             throw new Error(`Incorrect configuration, header is not the same as the number of groups, error on row ${row + 1}`);
@@ -65,16 +64,13 @@ function doTally(table: Table, tally: Tally, productCount: number) {
 function makeExcelTally(workbook: WorkBook, worksheet: string) {
     const sheet = workbook.Sheets[worksheet];
     const table: Table = utils.sheet_to_json(sheet, {header: 1});
-    console.log(table);
     const productNames = table[0].filter((title): title is string => typeof title === "string");
-    console.log(productNames);
 
     const count: Tally = setupTally(productNames.length);
 
     doTally(table, count, productNames.length);
 
     const outTable = tallyToTable(productNames, count);
-    console.log(outTable);
 
     // Make the EXCEL document
     const outWorksheet = utils.json_to_sheet(outTable, {skipHeader: true});
