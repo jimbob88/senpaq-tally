@@ -62,28 +62,32 @@ function doTally(table: Table, tally: Tally, productCount: number) {
     }
 }
 
+function makeExcelTally(workbook: WorkBook, worksheet: string) {
+    const sheet = workbook.Sheets[worksheet];
+    const table: Table = utils.sheet_to_json(sheet, {header: 1});
+    console.log(table);
+    const productNames = table[0].filter((title): title is string => typeof title === "string");
+    console.log(productNames);
+
+    const count: Tally = setupTally(productNames.length);
+
+    doTally(table, count, productNames.length);
+
+    const outTable = tallyToTable(productNames, count);
+    console.log(outTable);
+
+    // Make the EXCEL document
+    const outWorksheet = utils.json_to_sheet(outTable, {skipHeader: true});
+    const outWorkbook = utils.book_new();
+    utils.book_append_sheet(outWorkbook, outWorksheet, "output");
+    writeFileXLSX(outWorkbook, "output.xlsx", {compression: true});
+}
+
 
 export default function CalculateStage(props: { workbook: WorkBook, worksheet: string }) {
 
     const calculate = () => {
-        const sheet = props.workbook.Sheets[props.worksheet];
-        const table: Table = utils.sheet_to_json(sheet, {header: 1});
-        console.log(table);
-        const productNames = table[0].filter((title): title is string => typeof title === "string");
-        console.log(productNames);
-
-        const count: Tally = setupTally(productNames.length);
-
-        doTally(table, count, productNames.length);
-
-        const outTable = tallyToTable(productNames, count);
-        console.log(outTable);
-
-        // Make the EXCEL document
-        const worksheet = utils.json_to_sheet(outTable, {skipHeader: true});
-        const workbook = utils.book_new();
-        utils.book_append_sheet(workbook, worksheet, "output");
-        writeFileXLSX(workbook, "output.xlsx", {compression: true});
+        makeExcelTally(props.workbook, props.worksheet);
     }
 
     return (
