@@ -9,7 +9,7 @@ export default function Pipeline() {
 
     return (
         <React.Fragment>
-            <FileSelectionStage></FileSelectionStage>
+            <FileSelectionStage setSelectedFile={setSelectedFile}></FileSelectionStage>
             <WorksheetSelectionStage isEnabled={selectedFile}></WorksheetSelectionStage>
             <CalculateStage isEnabled={selectedWorksheet}></CalculateStage>
         </React.Fragment>
