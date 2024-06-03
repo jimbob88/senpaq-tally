@@ -29,6 +29,10 @@ function tallyToTable(productNames: string[], tally: Tally): string[][] {
     return table;
 }
 
+function isAlpha(x: any): boolean {
+    return typeof x === 'string' && /^[a-zA-Z]+$/.test(x)
+}
+
 
 export default function CalculateStage(props: { workbook: WorkBook, worksheet: string }) {
 
@@ -43,13 +47,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
 
 
         for (let row = 1; row < table.length; row++) {
-            let rowGroups = new Array<string>();
-            for (let col = 1; col < table[row].length; col++) {
-                let cell = table[row][col];
-                if (typeof cell === "string" && /^[a-zA-Z]+$/.exec(cell)) {
-                    rowGroups.push(cell);
-                }
-            }
+            let rowGroups =  table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
             console.log(rowGroups);
 
             if (rowGroups.length !== productNames.length) {
