@@ -57,9 +57,15 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
 
         }
 
-        console.log(`Finished, with the following results: `);
-        console.log(header);
-        console.log(count);
+        const outTable = [];
+        outTable.push(["Similar / Dissimilar", ...header]);
+        count.forEach((row, rowIdx) => {
+            const cellValues = row.map((val, colIdx) => {
+                return rowIdx === colIdx ? "-" : `${val.similar} / ${val.dissimilar}`;
+            })
+            outTable.push([header[rowIdx], ...cellValues]);
+        })
+        console.log(outTable);
     }
 
     return (
