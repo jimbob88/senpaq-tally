@@ -41,9 +41,9 @@ ipcMain.on('message', async (event, arg) => {
 })
 
 ipcMain.handle('read-excel-file', async (event: Electron.IpcMainEvent, filePath: string) => {
-  if (filePath.endsWith('.xls') || filePath.endsWith('.xlsx')) {
+  if (filePath.endsWith('.xls') || filePath.endsWith('.xlsx') || filePath.endsWith('.csv')) {
     return readFile(filePath);
   }
 
-  throw new Error("CSV support has not been implemented yet!");
+  throw new Error("Unsupported file format!");
 });
