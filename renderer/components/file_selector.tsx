@@ -20,7 +20,7 @@ export default function ExcelFileSelector(props: { onChange: (selectedFile: File
     const uploadDescription = () => {
         if (selectedFile) {
             return (<React.Fragment>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Currently Selected
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400">Currently Selected
                     File: {selectedFile.name}</p>
                 <button type="button" onClick={cancelFileSelection}
                         className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-2">Abort
@@ -28,10 +28,10 @@ export default function ExcelFileSelector(props: { onChange: (selectedFile: File
             </React.Fragment>);
         }
         return (<React.Fragment>
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-center mb-2 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Click to upload</span> or drag and drop
             </p>
-            <p className="wb-2 text-xs text-gray-500 dark:text-gray-400">CSV, XLS, or XLSX</p>
+            <p className="text-center wb-2 text-xs text-gray-500 dark:text-gray-400">CSV, XLS, or XLSX</p>
         </React.Fragment>);
     }
 
