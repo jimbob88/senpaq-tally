@@ -1,9 +1,11 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: io.github.jimbob88.senpaqtally
+productName: SenPAQ Tally
+copyright: Copyright © 2024 James Blackburn
 directories:
   output: dist
   buildResources: resources
+win:
+  icon: resources/icon.ico
 files:
   - from: .
     filter:

@@ -22,6 +22,7 @@ if (isProd) {
       preload: path.join(__dirname, 'preload.js'),
     },
     autoHideMenuBar: true,
+    icon: path.join(__dirname, '../resources/icon.ico'),
   })
 
   if (isProd) {
