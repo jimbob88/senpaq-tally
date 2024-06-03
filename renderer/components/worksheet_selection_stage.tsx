@@ -1,3 +1,3 @@
-export default function WorksheetSelectionStage() {
+export default function WorksheetSelectionStage(props: {isEnabled: boolean}) {
     return undefined;
 }

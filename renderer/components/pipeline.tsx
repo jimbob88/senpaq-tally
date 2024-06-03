@@ -4,11 +4,14 @@ import WorksheetSelectionStage from "./worksheet_selection_stage";
 import CalculateStage from "./calculate_stage";
 
 export default function Pipeline() {
+    const [selectedFile, setSelectedFile] = React.useState<boolean>();
+    const [selectedWorksheet, setSelectedWorksheet] = React.useState<boolean>();
+
     return (
         <React.Fragment>
             <FileSelectionStage></FileSelectionStage>
-            <WorksheetSelectionStage></WorksheetSelectionStage>
-            <CalculateStage></CalculateStage>
+            <WorksheetSelectionStage isEnabled={selectedFile}></WorksheetSelectionStage>
+            <CalculateStage isEnabled={selectedWorksheet}></CalculateStage>
         </React.Fragment>
     )
 }
