@@ -2,6 +2,7 @@ import path from 'path'
 import { app, ipcMain } from 'electron'
 import serve from 'electron-serve'
 import { createWindow } from './helpers'
+import {readFile} from "xlsx";
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -38,3 +39,11 @@ app.on('window-all-closed', () => {
 ipcMain.on('message', async (event, arg) => {
   event.reply('message', `${arg} World!`)
 })
+
+ipcMain.handle('read-excel-file', async (event: Electron.IpcMainEvent, filePath: string) => {
+  if (filePath.endsWith('.xls') || filePath.endsWith('.xlsx')) {
+    return readFile(filePath);
+  }
+
+  throw new Error("CSV support has not been implemented yet!");
+});

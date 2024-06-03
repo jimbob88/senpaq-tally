@@ -7,10 +7,12 @@ import ExcelFileSelector from "./file_selector";
  * @param props
  * @constructor
  */
-export default function FileSelectionStage(props: {setSelectedFile: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function FileSelectionStage(props: {setSelectedFile: React.Dispatch<React.SetStateAction<File>>}) {
 
     const handleSelectFileChange = (selectedFile: File) => {
-        props.setSelectedFile(selectedFile !== null);
+        console.log("Passign upwards:");
+        console.log(selectedFile);
+        props.setSelectedFile(selectedFile);
     }
 
     return (

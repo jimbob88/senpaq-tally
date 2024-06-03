@@ -18,3 +18,7 @@ const handler = {
 contextBridge.exposeInMainWorld('ipc', handler)
 
 export type IpcHandler = typeof handler
+
+contextBridge.exposeInMainWorld('electron', {
+  readFile: (filePath: string) => ipcRenderer.invoke('read-excel-file', filePath)
+});

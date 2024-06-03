@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 export default function ExcelFileSelector(props: { onChange: (selectedFile: File) => void }) {
     const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
 
+    useEffect(() => {
+        props.onChange(selectedFile);
+    }, [selectedFile]);
+
     const updateSelectedFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(event.target.files[0]);
-        props.onChange(selectedFile);
     }
 
     const cancelFileSelection = (event: React.MouseEvent<HTMLElement>) => {
