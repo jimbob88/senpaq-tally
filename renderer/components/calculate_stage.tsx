@@ -11,12 +11,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
         const sheet = props.workbook.Sheets[props.worksheet];
         const table: Array<Array<string | number | undefined>> = utils.sheet_to_json(sheet, {header: 1});
         console.log(table);
-        const header = new Array<string>();
-        table[0].forEach((title) => {
-            if (typeof title === "string") {
-                header.push(title);
-            }
-        });
+        const header = table[0].filter((title): title is string => typeof title === "string");
         console.log(header);
 
         const count: Array<Array<{ similar: number, dissimilar: number }>> = [];
