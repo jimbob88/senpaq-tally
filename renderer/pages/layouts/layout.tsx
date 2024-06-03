@@ -1,14 +1,25 @@
 import React, {PropsWithChildren} from "react";
+import Image from 'next/image';
+import logo from "../../../resources/icon.svg";
 
 export default function Layout(props: PropsWithChildren) {
     const {children} = props;
     return (
         <React.Fragment>
-            <header
-                className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
+            <header>
+                <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+                    <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                        <span className="flex items-center">
+                            <Image src={logo} className="mr-3 h-6 w-auto sm:h-9" alt="SenPAQ Tally Logo"/>
+                            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SenPAQ Tally</span>
+                        </span>
+                    </div>
+                </nav>
             </header>
             <main>
-                {children}
+                <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+                    {children}
+                </div>
             </main>
         </React.Fragment>
     );
