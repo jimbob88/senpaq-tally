@@ -5,9 +5,10 @@ function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
 }
 
 type Tally = Array<Array<{ similar: number, dissimilar: number }>>;
+type Table = Array<Array<string | number | undefined>>;
 
 /** Make a square tally table for similar and dissimilar */
-function makeTally(dimension: number): Tally {
+function setupTally(dimension: number): Tally {
     const count: Tally = [];
     for (let i = 0; i < dimension; i++) {
         count.push(Array.apply(null, Array(dimension)).map(() => {
@@ -33,42 +34,47 @@ function isAlpha(x: any): boolean {
     return typeof x === 'string' && /^[a-zA-Z]+$/.test(x)
 }
 
+function isSimilar(group1: string, group2: string): boolean {
+    const compare = intersection(new Set(group1), new Set(group2));
+    return compare.size !== 0;
+}
+
+function doTally(table: Table, tally: Tally, productCount: number) {
+    for (let row = 1; row < table.length; row++) {
+        let rowGroups = table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
+        console.log(rowGroups);
+
+        if (rowGroups.length !== productCount) {
+            throw new Error(`Incorrect configuration, header is not the same as the number of groups, error on row ${row + 1}`);
+        }
+
+        for (let current = 0; current < rowGroups.length; current++) {
+            for (let compareTo = current + 1; compareTo < rowGroups.length; compareTo++) {
+                if (isSimilar(rowGroups[current], rowGroups[compareTo])) {
+                    tally[current][compareTo].similar += 1;
+                    tally[compareTo][current].similar += 1;
+                } else {
+                    tally[current][compareTo].dissimilar += 1;
+                    tally[compareTo][current].dissimilar += 1;
+                }
+            }
+        }
+    }
+}
+
 
 export default function CalculateStage(props: { workbook: WorkBook, worksheet: string }) {
 
     const calculate = () => {
         const sheet = props.workbook.Sheets[props.worksheet];
-        const table: Array<Array<string | number | undefined>> = utils.sheet_to_json(sheet, {header: 1});
+        const table: Table = utils.sheet_to_json(sheet, {header: 1});
         console.log(table);
         const productNames = table[0].filter((title): title is string => typeof title === "string");
         console.log(productNames);
 
-        const count: Tally = makeTally(productNames.length);
+        const count: Tally = setupTally(productNames.length);
 
-
-        for (let row = 1; row < table.length; row++) {
-            let rowGroups =  table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
-            console.log(rowGroups);
-
-            if (rowGroups.length !== productNames.length) {
-                throw new Error(`Incorrect configuration, header is not the same as the number of groups, error on row ${row + 1}`);
-            }
-
-            rowGroups.forEach((currentGroup, current) => {
-                rowGroups.forEach((compareGroup, compareTo) => {
-                    if (current !== compareTo) {
-                        const compare = intersection(new Set(currentGroup), new Set(compareGroup));
-                        console.log(`Comparing ${currentGroup} to ${compareGroup} to produce ${Array.from(compare)}`);
-                        if (compare.size === 0) {
-                            count[current][compareTo].dissimilar += 1;
-                        } else {
-                            count[current][compareTo].similar += 1;
-                        }
-                    }
-                })
-            })
-
-        }
+        doTally(table, count, productNames.length);
 
         const outTable = tallyToTable(productNames, count);
         console.log(outTable);
@@ -77,7 +83,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
         const worksheet = utils.json_to_sheet(outTable, {skipHeader: true});
         const workbook = utils.book_new();
         utils.book_append_sheet(workbook, worksheet, "output");
-        writeFileXLSX(workbook, "output.xlsx", { compression: true });
+        writeFileXLSX(workbook, "output.xlsx", {compression: true});
     }
 
     return (
