@@ -1,22 +1,33 @@
 import React from "react";
 
-export default function ExcelFileSelector(props: { onChange: React.ChangeEventHandler<HTMLInputElement> }) {
+export default function ExcelFileSelector(props: { onChange: (selectedFile: File) => void }) {
     const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
 
     const updateSelectedFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedFile(event.target.files[0]);
-        props.onChange(event);
+        props.onChange(selectedFile);
+    }
+
+    const cancelFileSelection = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setSelectedFile(null);
     }
 
     const uploadDescription = () => {
         if (selectedFile) {
-            return <p className="text-sm text-gray-500 dark:text-gray-400">Currently Selected
-                File: {selectedFile.name}</p>;
+            return (<React.Fragment>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Currently Selected
+                    File: {selectedFile.name}</p>
+                <button type="button" onClick={cancelFileSelection}
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-2">Abort
+                </button>
+            </React.Fragment>);
         }
         return (<React.Fragment>
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                className="font-semibold">Click to upload</span> or
-                drag and drop</p>
+            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span className="font-semibold">Click to upload</span> or drag and drop
+            </p>
             <p className="wb-2 text-xs text-gray-500 dark:text-gray-400">CSV, XLS, or XLSX</p>
         </React.Fragment>);
     }
@@ -35,7 +46,8 @@ export default function ExcelFileSelector(props: { onChange: React.ChangeEventHa
                 </div>
                 <input
                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                    id="dropzone-file" type="file" className="hidden" onChange={updateSelectedFile}/>
+                    id="dropzone-file" type="file" className="hidden" onChange={updateSelectedFile}
+                    key={selectedFile ? selectedFile.name : null}/>
             </label>
         </div>
     );

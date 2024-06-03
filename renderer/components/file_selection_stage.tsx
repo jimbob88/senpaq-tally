@@ -9,8 +9,8 @@ import ExcelFileSelector from "./file_selector";
  */
 export default function FileSelectionStage(props: {setSelectedFile: React.Dispatch<React.SetStateAction<boolean>>}) {
 
-    const handleSelectFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.files[0]);
+    const handleSelectFileChange = (selectedFile: File) => {
+        props.setSelectedFile(selectedFile !== null);
     }
 
     return (
