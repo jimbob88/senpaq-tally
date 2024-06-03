@@ -6,7 +6,8 @@ import {WorkBook} from "xlsx";
 
 export default function Pipeline() {
     const [selectedFile, setSelectedFile] = React.useState<File>();
-    const [workbook, setWorkbook] = React.useState<WorkBook>();
+    const [workbook, setWorkbook] = React.useState<WorkBook>(null);
+    const [worksheet, setWorksheet] = React.useState<string>(null);
 
     useEffect(() => {
         if (selectedFile) {
@@ -21,8 +22,8 @@ export default function Pipeline() {
     return (
         <React.Fragment>
             <FileSelectionStage setSelectedFile={setSelectedFile}></FileSelectionStage>
-            <WorksheetSelectionStage workbook={workbook}></WorksheetSelectionStage>
-            <CalculateStage isEnabled={false}></CalculateStage>
+            <WorksheetSelectionStage workbook={workbook} setWorksheet={setWorksheet}></WorksheetSelectionStage>
+            <CalculateStage workbook={workbook} worksheet={worksheet}></CalculateStage>
         </React.Fragment>
     )
 }
