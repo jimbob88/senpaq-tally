@@ -17,6 +17,18 @@ function makeTally(dimension: number): Tally {
     return count;
 }
 
+function tallyToTable(productNames: string[], tally: Tally): string[][] {
+    const table = [];
+    table.push(["Similar / Dissimilar", ...productNames]);
+    tally.forEach((row, rowIdx) => {
+        const cellValues = row.map((val, colIdx) => {
+            return rowIdx === colIdx ? "-" : `${val.similar} / ${val.dissimilar}`;
+        })
+        table.push([productNames[rowIdx], ...cellValues]);
+    })
+    return table;
+}
+
 
 export default function CalculateStage(props: { workbook: WorkBook, worksheet: string }) {
 
@@ -24,10 +36,10 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
         const sheet = props.workbook.Sheets[props.worksheet];
         const table: Array<Array<string | number | undefined>> = utils.sheet_to_json(sheet, {header: 1});
         console.log(table);
-        const header = table[0].filter((title): title is string => typeof title === "string");
-        console.log(header);
+        const productNames = table[0].filter((title): title is string => typeof title === "string");
+        console.log(productNames);
 
-        const count: Tally = makeTally(header.length);
+        const count: Tally = makeTally(productNames.length);
 
 
         for (let row = 1; row < table.length; row++) {
@@ -40,7 +52,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
             }
             console.log(rowGroups);
 
-            if (rowGroups.length !== header.length) {
+            if (rowGroups.length !== productNames.length) {
                 throw new Error(`Incorrect configuration, header is not the same as the number of groups, error on row ${row + 1}`);
             }
 
@@ -60,14 +72,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
 
         }
 
-        const outTable = [];
-        outTable.push(["Similar / Dissimilar", ...header]);
-        count.forEach((row, rowIdx) => {
-            const cellValues = row.map((val, colIdx) => {
-                return rowIdx === colIdx ? "-" : `${val.similar} / ${val.dissimilar}`;
-            })
-            outTable.push([header[rowIdx], ...cellValues]);
-        })
+        const outTable = tallyToTable(productNames, count);
         console.log(outTable);
 
         // Make the EXCEL document
