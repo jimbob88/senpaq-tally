@@ -4,6 +4,19 @@ function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
     return new Set(Array.from(a).filter(x => b.has(x)));
 }
 
+type Tally = Array<Array<{ similar: number, dissimilar: number }>>;
+
+/** Make a square tally table for similar and dissimilar */
+function makeTally(dimension: number): Tally {
+    const count: Tally = [];
+    for (let i = 0; i < dimension; i++) {
+        count.push(Array.apply(null, Array(dimension)).map(() => {
+            return {similar: 0, dissimilar: 0};
+        }));
+    }
+    return count;
+}
+
 
 export default function CalculateStage(props: { workbook: WorkBook, worksheet: string }) {
 
@@ -14,12 +27,7 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
         const header = table[0].filter((title): title is string => typeof title === "string");
         console.log(header);
 
-        const count: Array<Array<{ similar: number, dissimilar: number }>> = [];
-        for (let i = 0; i < header.length; i++) {
-            count.push(Array.apply(null, Array(header.length)).map(() => {
-                return {similar: 0, dissimilar: 0};
-            }));
-        }
+        const count: Tally = makeTally(header.length);
 
 
         for (let row = 1; row < table.length; row++) {
