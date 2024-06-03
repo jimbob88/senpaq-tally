@@ -1,4 +1,4 @@
-import {utils, WorkBook} from "xlsx";
+import {utils, WorkBook, writeFileXLSX} from "xlsx";
 
 function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
     return new Set(Array.from(a).filter(x => b.has(x)));
@@ -66,6 +66,12 @@ export default function CalculateStage(props: { workbook: WorkBook, worksheet: s
             outTable.push([header[rowIdx], ...cellValues]);
         })
         console.log(outTable);
+
+        // Make the EXCEL document
+        const worksheet = utils.json_to_sheet(outTable, {skipHeader: true});
+        const workbook = utils.book_new();
+        utils.book_append_sheet(workbook, worksheet, "output");
+        writeFileXLSX(workbook, "output.xlsx", { compression: true });
     }
 
     return (
