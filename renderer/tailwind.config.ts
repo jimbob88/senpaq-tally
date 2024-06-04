@@ -1,6 +1,7 @@
-const colors = require('tailwindcss/colors')
+import type { Config } from 'tailwindcss';
+import colors from "tailwindcss/colors";
 
-module.exports = {
+export default {
   content: [
     './renderer/pages/**/*.{js,ts,jsx,tsx}',
     './renderer/components/**/*.{js,ts,jsx,tsx}',
@@ -17,4 +18,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+} satisfies Config

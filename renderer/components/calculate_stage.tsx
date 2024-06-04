@@ -1,3 +1,4 @@
+import React from 'react';
 import {utils, WorkBook, writeFileXLSX} from "xlsx";
 
 function intersection<T>(a: Set<T>, b: Set<T>): Set<T> {
@@ -11,7 +12,7 @@ type Table = Array<Array<string | number | undefined>>;
 function setupTally(dimension: number): Tally {
     const count: Tally = [];
     for (let i = 0; i < dimension; i++) {
-        count.push(Array.apply(null, Array(dimension)).map(() => {
+        count.push([...Array(dimension)].map(() => {
             return {similar: 0, dissimilar: 0};
         }));
     }
@@ -30,7 +31,7 @@ function tallyToTable(productNames: string[], tally: Tally): string[][] {
     return table;
 }
 
-function isAlpha(x: any): boolean {
+function isAlpha(x: string | number | undefined ): boolean {
     return typeof x === 'string' && /^[a-zA-Z]+$/.test(x)
 }
 
@@ -41,7 +42,7 @@ function isSimilar(group1: string, group2: string): boolean {
 
 function doTally(table: Table, tally: Tally, productCount: number) {
     for (let row = 1; row < table.length; row++) {
-        let rowGroups = table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
+        const rowGroups = table[row].slice(1).filter((cell): cell is string => isAlpha(cell))
 
         if (rowGroups.length !== productCount) {
             throw new Error(`Incorrect configuration, header is not the same as the number of groups, error on row ${row + 1}`);
