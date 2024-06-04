@@ -4,7 +4,24 @@
 
 @layer base {
   body {
-    @apply bg-opacity-80 bg-gray-900 text-white;
+    @apply bg-transparent text-white;
+  }
+
+  #__next {
+    @apply bg-opacity-80 bg-gray-900;
+    border-radius: 10px;
+  }
+
+  html,
+  body,
+  #__next {
+    height: 100%;
+    width: 100%;
+  }
+
+  header {
+    -webkit-app-region: drag;
+    user-select: none;
   }
 }
 
@@ -12,15 +29,4 @@
   .btn-blue {
     @apply text-white font-bold px-4 py-2 rounded bg-blue-600 hover:bg-blue-500;
   }
-}
-
-html,
-body,
-#__next {
-  height: 100%;
-  width: 100%;
-}
-
-header {
-  -webkit-app-region: drag;
 }
