@@ -1,5 +1,5 @@
-import React from 'react'
-import Head from 'next/head'
+import React from "react";
+import Head from "next/head";
 import Pipeline from "../components/pipeline";
 
 export default function HomePage() {
@@ -9,8 +9,8 @@ export default function HomePage() {
         <title>Home - SenPAQ Tally</title>
       </Head>
       <div className="h-full w-full flex items-center justify-center">
-          <Pipeline></Pipeline>
+        <Pipeline></Pipeline>
       </div>
     </React.Fragment>
-  )
+  );
 }

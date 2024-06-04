@@ -7,13 +7,14 @@ import ExcelFileSelector from "./file_selector";
  * @param props
  * @constructor
  */
-export default function FileSelectionStage(props: {setSelectedFile: React.Dispatch<React.SetStateAction<File>>}) {
+export default function FileSelectionStage(props: {
+  setSelectedFile: React.Dispatch<React.SetStateAction<File>>;
+}) {
+  const handleSelectFileChange = (selectedFile: File) => {
+    props.setSelectedFile(selectedFile);
+  };
 
-    const handleSelectFileChange = (selectedFile: File) => {
-        props.setSelectedFile(selectedFile);
-    }
-
-    return (
-        <ExcelFileSelector onChange={handleSelectFileChange}></ExcelFileSelector>
-    );
+  return (
+    <ExcelFileSelector onChange={handleSelectFileChange}></ExcelFileSelector>
+  );
 }

@@ -1,0 +1,4 @@
+app/
+dist/
+renderer/.next/
+node_modules/

@@ -1,10 +1,10 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 import colors from "tailwindcss/colors";
 
 export default {
   content: [
-    './renderer/pages/**/*.{js,ts,jsx,tsx}',
-    './renderer/components/**/*.{js,ts,jsx,tsx}',
+    "./renderer/pages/**/*.{js,ts,jsx,tsx}",
+    "./renderer/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     colors: {
@@ -18,4 +18,4 @@ export default {
     extend: {},
   },
   plugins: [],
-} satisfies Config
+} satisfies Config;
