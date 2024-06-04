@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-900 text-white;
+    @apply bg-opacity-80 bg-gray-900 text-white;
   }
 }
 
@@ -19,4 +19,8 @@ body,
 #__next {
   height: 100%;
   width: 100%;
+}
+
+header {
+  -webkit-app-region: drag;
 }

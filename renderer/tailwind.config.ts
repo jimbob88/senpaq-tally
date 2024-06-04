@@ -14,6 +14,7 @@ export default {
       blue: colors.blue,
       red: colors.red,
       lime: colors.lime,
+      transparent: colors.transparent,
     },
     extend: {},
   },
