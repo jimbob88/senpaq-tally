@@ -105,7 +105,12 @@ export default function CalculateStage(props: {
       type="button"
       onClick={() => calculate()}
       disabled={props.workbook === null || props.worksheet === null}
-      className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
+      className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500
+        hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300
+        dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg
+        dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+        me-2 mb-2 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200
+        disabled:shadow-none disabled:cursor-not-allowed disabled:opacity-50"
     >
       Calculate
     </button>

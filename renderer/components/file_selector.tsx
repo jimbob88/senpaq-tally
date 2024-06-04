@@ -29,7 +29,11 @@ export default function ExcelFileSelector(props: {
           <button
             type="button"
             onClick={cancelFileSelection}
-            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-2"
+            className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600
+              hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300
+              dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg
+              dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+              me-2 my-2"
           >
             Abort
           </button>
@@ -53,7 +57,10 @@ export default function ExcelFileSelector(props: {
     <div className="flex items-center justify-center w-full">
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300
+          border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800
+          dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600
+          dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <svg
