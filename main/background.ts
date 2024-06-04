@@ -58,3 +58,7 @@ ipcMain.handle(
     throw new Error("Unsupported file format!");
   },
 );
+
+ipcMain.handle("close", async (event: Electron.IpcMainEvent) => {
+  app.quit();
+});

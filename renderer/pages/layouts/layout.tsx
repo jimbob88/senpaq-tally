@@ -4,6 +4,12 @@ import logo from "../../../resources/icon.svg";
 
 export default function Layout(props: PropsWithChildren) {
   const { children } = props;
+
+  const close = () => {
+    console.log("Gonna Close!");
+    window.electron.close();
+  };
+
   return (
     <div className="flex flex-col h-full rounded-lg">
       <header className="shadow-md">
@@ -20,7 +26,11 @@ export default function Layout(props: PropsWithChildren) {
               </span>
             </span>
             <span className="flex items-center">
-              <button className="w-6 h-6 text-gray-800 dark:text-white">
+              <button
+                id="close-button"
+                className="w-6 h-6 text-gray-800 dark:text-white"
+                onClick={close}
+              >
                 <svg
                   className="w-6 h-6 text-gray-800 dark:text-white"
                   aria-hidden="true"
