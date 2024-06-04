@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
-  "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "name": "senpaq-tally",
+  "description": "Program to count similar and dissimilar mc summaries.",
+  "version": "1.1.0",
+  "author": "James Blackburn <blackburnfjames@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
